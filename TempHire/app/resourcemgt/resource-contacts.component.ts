@@ -1,5 +1,4 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
-import * as _ from "lodash";
 import { StaffingResource, State, PhoneNumber, Address, AddressType, PhoneNumberType } from '../core/entities/entity-model';
 import { ResourceMgtUnitOfWork } from './resource-mgt-unit-of-work';
 
@@ -16,19 +15,48 @@ export class ResourceContactsComponent implements OnInit {
     addressTypes: AddressType[];
     phoneNumberTypes: PhoneNumberType[];
 
-    constructor(private unitOfWork: ResourceMgtUnitOfWork) { }
+    constructor(private unitOfWork: ResourceMgtUnitOfWork) {
+        this.states = [];
+        this.addressTypes = [];
+        this.phoneNumberTypes = [];
+    }
 
     ngOnInit() {
+        let that = this;
         this.unitOfWork.states.all().then(data => {
-            this.states = _.sortBy(data, x => x.name);
+            that.states = data.sort((a, b) => {
+                var nameA = a.name.toUpperCase();
+                var nameB = b.name.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+
+                return 0;
+            });
+            //that.states = _.sortBy(data, x => x.name);
         });
 
         this.unitOfWork.addressTypes.all().then(data => {
-            this.addressTypes = _.sortBy(data, x => x.displayName);
+            that.addressTypes = data.sort((a, b) => {
+                var nameA = a.displayName.toUpperCase();
+                var nameB = b.displayName.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+
+                return 0;
+            });
+            //that.addressTypes = _.sortBy(data, x => x.displayName);
         });
 
         this.unitOfWork.phoneNumberTypes.all().then(data => {
-            this.phoneNumberTypes = _.sortBy(data, x => x.name);
+            that.phoneNumberTypes = data.sort((a, b) => {
+                var nameA = a.name.toUpperCase();
+                var nameB = b.name.toUpperCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+
+                return 0;
+            });
+            //that.phoneNumberTypes = _.sortBy(data, x => x.name);
         });
     }
 
