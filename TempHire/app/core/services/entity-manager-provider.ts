@@ -50,7 +50,7 @@ export class EntityManagerProvider {
     fetchData = (masterManager: EntityManager, registerAnnotations: ((metadataStore: MetadataStore)=>any)) => {
         EntityManagerProvider._preparePromise = new Promise(function (resolve, reject) {
             masterManager.fetchMetadata().then(() => {
-                //RegistrationHelper.register(masterManager.metadataStore);
+                RegistrationHelper.register(masterManager.metadataStore);
                 registerAnnotations(masterManager.metadataStore);
                 var query = EntityQuery.from('lookups');
                 masterManager.executeQuery(query).then((queryResult) => {

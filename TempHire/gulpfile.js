@@ -1,4 +1,4 @@
-/// <binding AfterBuild='default' />
+/// <binding />
 var gulp    = require('gulp');
 var shell = require('gulp-shell');
 var watch = require('gulp-watch');

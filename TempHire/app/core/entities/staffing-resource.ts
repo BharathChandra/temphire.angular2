@@ -19,7 +19,7 @@ export class StaffingResource extends EntityBase {
         this.id = core.getUuid();
     }
 
-    addAddress(typeId: string): Address {
+   addAddress(typeId: string): Address {
         return <Address>this.entityAspect.entityManager.createEntity('Address', { addressTypeId: typeId, staffingResourceId: this.id });
     }
 
@@ -57,9 +57,9 @@ export class StaffingResource extends EntityBase {
         address.primary = true;
     }
 
-    getFullName() {
+   getFullName() {
         return ['firstName', 'middleName', 'lastName']
-            .map(x => this[x])
+            .map((x: any): any => this[x])
             .reduce((prev, cur) => prev ? `${prev} ${cur}` : cur, '');
     }
 
