@@ -1,11 +1,11 @@
 ﻿import { Entity, FetchStrategySymbol, EntityManager, FetchStrategy, EntityType, EntityQuery, Predicate, promises } from 'breeze-client';
-import IPromise = promises.IPromise;
+//import IPromise = promises.IPromise;
 
 export interface IRepository<T> {
-    withId(key: any): IPromise<T>;
-    where(predicate: Predicate): IPromise<T[]>;
+    withId(key: any): Promise<T>;
+    where(predicate: Predicate): Promise<T[]>;
     whereInCache(predicate: Predicate): T[];
-    all(): IPromise<T[]>;
+    all(): Promise<T[]>;
 }
 
 export class Repository<T> implements IRepository<T> {
@@ -38,14 +38,14 @@ export class Repository<T> implements IRepository<T> {
         return this._isCachedBundle ? this._entityTypeName : this._resourceName;
     }
 
-    withId(key: any): IPromise<T> {
+    withId(key: any): Promise<T> {
         if (!this._entityTypeName)
             throw new Error("Repository must be created with an entity type specified");
 
         return this.manager.fetchEntityByKey(this._entityTypeName, key, true)
             .then(function (data) {
                 return <T><any>data.entity;
-            }).catch(e => {
+            }).catch((e:any) => {
                 if (e.status == 404) {
                     return null;
                 }
@@ -55,7 +55,7 @@ export class Repository<T> implements IRepository<T> {
             });
     };
 
-    where(predicate: Predicate): IPromise<T[]> {
+    where(predicate: Predicate): Promise<T[]> {
         let query = this.baseQuery().where(predicate);
 
         return this.executeQuery(query);
@@ -67,7 +67,7 @@ export class Repository<T> implements IRepository<T> {
         return <any[]>this.executeCacheQuery(query);
     };
 
-    all(): IPromise<T[]> {
+    all(): Promise<T[]> {
         let query = this.baseQuery();
 
         return this.executeQuery(query);
@@ -77,7 +77,7 @@ export class Repository<T> implements IRepository<T> {
         return EntityQuery.from(this.localResourceName);
     }
 
-    protected executeQuery(query: EntityQuery, fetchStrategy?: FetchStrategySymbol): IPromise<T[]> {
+    protected executeQuery(query: EntityQuery, fetchStrategy?: FetchStrategySymbol): Promise<T[]> {
         let q = query.using(fetchStrategy || this._defaultFetchStrategy);
         return this.manager.executeQuery(q).then(data => {
             return data.results;

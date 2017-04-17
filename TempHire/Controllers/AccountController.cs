@@ -1,10 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http;
-using System.Security;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
-using CustomerPortal.Controllers;
 
 namespace TempHire.Controllers
 {

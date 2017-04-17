@@ -54,9 +54,9 @@ export class ResourceMgtComponent implements OnInit, OnDestroy {
     private loadList = (unitOfWork: ResourceMgtUnitOfWork, busyService: BusyService): Promise<any> => {
         return busyService.busy(new Promise(function (resolve, reject) {
             unitOfWork.staffingResourceListItems.all()
-                .then((data) => {                   
+                .then((data:any) => {                   
                     resolve(data);
-                }).catch(e => {
+                }).catch((e:any) => {
                     reject(e);
                 });
         }));

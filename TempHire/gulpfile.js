@@ -14,9 +14,10 @@ gulp.task('build',
 );
 
 // tree shaking
-gulp.task('rollup', ['build'],
-  shell.task([rollup + ' -c rollup.js'], { cwd: clientDir })
-)
+gulp.task('rollup',
+    ['build'],
+    shell.task([rollup + ' -c rollup.js'], { cwd: clientDir })
+);
 
 // watch and build
 gulp.task('watch', function() {

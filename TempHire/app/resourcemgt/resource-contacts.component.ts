@@ -23,8 +23,8 @@ export class ResourceContactsComponent implements OnInit {
 
     ngOnInit() {
         let that = this;
-        this.unitOfWork.states.all().then(data => {
-            that.states = data.sort((a, b) => {
+        this.unitOfWork.states.all().then((data:any) => {
+            that.states = data.sort((a:any, b:any) => {
                 var nameA = a.name.toUpperCase();
                 var nameB = b.name.toUpperCase();
                 if (nameA < nameB) return -1;
@@ -35,8 +35,8 @@ export class ResourceContactsComponent implements OnInit {
             //that.states = _.sortBy(data, x => x.name);
         });
 
-        this.unitOfWork.addressTypes.all().then(data => {
-            that.addressTypes = data.sort((a, b) => {
+        this.unitOfWork.addressTypes.all().then((data:any) => {
+            that.addressTypes = data.sort((a:any, b:any) => {
                 var nameA = a.displayName.toUpperCase();
                 var nameB = b.displayName.toUpperCase();
                 if (nameA < nameB) return -1;
@@ -47,8 +47,8 @@ export class ResourceContactsComponent implements OnInit {
             //that.addressTypes = _.sortBy(data, x => x.displayName);
         });
 
-        this.unitOfWork.phoneNumberTypes.all().then(data => {
-            that.phoneNumberTypes = data.sort((a, b) => {
+        this.unitOfWork.phoneNumberTypes.all().then((data:any) => {
+            that.phoneNumberTypes = data.sort((a:any, b:any) => {
                 var nameA = a.name.toUpperCase();
                 var nameB = b.name.toUpperCase();
                 if (nameA < nameB) return -1;

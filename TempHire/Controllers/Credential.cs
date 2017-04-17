@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace CustomerPortal.Controllers
+namespace TempHire.Controllers
 {
     public class Credential
     {
